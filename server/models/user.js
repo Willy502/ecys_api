@@ -14,11 +14,118 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   user.init({
-    carnet: DataTypes.INTEGER,
-    nombres: DataTypes.STRING,
-    apellidos: DataTypes.STRING,
-    contrasenia: DataTypes.STRING,
-    correo: DataTypes.STRING
+    carnet: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: false,
+      validate: {
+        notEmpty: {
+          msg: "El número de carnet no puede estar vacío"
+        },
+        notNull: {
+          msg: "El número de carnet no puede ser nulo"
+        }
+      },
+      unique: {
+        args: 'carnet',
+        msg: "Este número de carnet ya se encuentra en uso",
+      },
+      field: 'carnet'
+    },
+    nombres: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Los nombres no pueden estar vacíos"
+        },
+        notNull: {
+          msg: "Los nombres no pueden ser nulos"
+        }
+      },
+      field:'nombres'
+    },
+    apellidos: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Los apellidos no pueden estar vacíos"
+        },
+        notNull: {
+          msg: "Los apellidos no pueden ser nulos"
+        }
+      },
+      field:'apellidos'
+    },
+    contrasenia: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "La contraseña no puede estar vacía"
+        },
+        notNull: {
+          msg: "La contraseña no puede ser nula"
+        }
+      },
+      field:'contrasenia'
+    },
+    correo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El correo no puede estar vacío",
+        },
+        notNull: {
+          msg: "El correo no puede ser nulo"
+        }
+      },
+      unique: {
+        args: 'correo',
+        msg: "Este correo ya se encuentra en uso",
+      },
+      field:'correo'
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: {
+          msg: "created_at no puede estar vacío"
+        },
+        isDate: {
+          msg: "Formato invalido"
+        }
+      },
+      field:'created_at'
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: {
+          msg: "updated_at no puede estar vacío"
+        },
+        isDate: {
+          msg: "Formato invalido"
+        }
+      },
+      field:'updated_at'
+    }
+  }, {
+    sequelize,
+    timestamps: false, // Eliminamos el updatedAt y createdAt
+    underscored: true, // Habilitar la creacion con guines bajos a nivel de base de datos
+    defaultScope: {
+      attributes: {
+        exclude: [ // excluir campos de un select
+          'created_at',
+          'updated_at',
+          'contrasenia'
+        ]
+      }
+    }
   }, {
     sequelize,
     modelName: 'user',
