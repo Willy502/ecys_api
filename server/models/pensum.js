@@ -3,35 +3,63 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class course extends Model {
+  class pensum extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.pensum);
+      this.belongsTo(models.course, {
+        foreignKey: 'curso_codigo_curso', as: 'codigo_curso'
+      });
     }
   };
-  course.init({
-    codigo_curso: {
+  pensum.init({
+    id_curso_pensum: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'codigo_curso'
+      field: 'id_curso_pensum'
     },
-    nombre: {
-      type: DataTypes.STRING,
+    curso_codigo_curso: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "El nombre no pueden estar vacío"
+          msg: "El código de curso no puede estar vacío"
         },
         notNull: {
-          msg: "El nombre no pueden ser nulo"
+          msg: "El código de curso no puede ser nulo"
         }
       },
-      field:'nombre'
+      field:'curso_codigo_curso'
+    },
+    creditos: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Los creditos no pueden estar vacíos"
+        },
+        notNull: {
+          msg: "Los creditos no pueden ser nulos"
+        }
+      },
+      field:'creditos'
+    },
+    semestre: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El semestre no puede estar vacío"
+        },
+        notNull: {
+          msg: "El semestre no puede ser nulo"
+        }
+      },
+      field:'semestre'
     },
     created_at: {
       type: DataTypes.DATE,
@@ -56,22 +84,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       field:'updated_at'
-    }
+    },
   }, {
     sequelize,
-    timestamps: false, // Eliminamos el updatedAt y createdAt
-    underscored: true, // Habilitar la creacion con guines bajos a nivel de base de datos
-    defaultScope: {
-      attributes: {
-        exclude: [ // excluir campos de un select
-          'created_at',
-          'updated_at'
-        ]
-      }
-    }
-  },  {
-    sequelize,
-    modelName: 'course',
+    modelName: 'pensum',
   });
-  return course;
+  return pensum;
 };
