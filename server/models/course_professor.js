@@ -77,6 +77,18 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
+    timestamps: false, // Eliminamos el updatedAt y createdAt
+    underscored: true, // Habilitar la creacion con guines bajos a nivel de base de datos
+    defaultScope: {
+      attributes: {
+        exclude: [ // excluir campos de un select
+          'created_at',
+          'updated_at'
+        ]
+      }
+    }
+  }, {
+    sequelize,
     modelName: 'course_professor',
   });
   return course_professor;

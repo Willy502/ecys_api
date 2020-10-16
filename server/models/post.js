@@ -3,24 +3,75 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class pensum extends Model {
+  class post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.course, {
-        foreignKey: 'curso_codigo_curso', as: 'codigo_curso'
-      });
+      // define association here
     }
   };
-  pensum.init({
-    id_curso_pensum: {
+  post.init({
+    id_publicacion: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
-      field: 'id_curso_pensum'
+      field: 'id_publicacion'
+    },
+    mensaje: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El mensaje no pueden estar vacío"
+        },
+        notNull: {
+          msg: "El mensaje no pueden ser nulo"
+        }
+      },
+      field:'mensajes'
+    },
+    usuario_carne: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El número de carnet no puede estar vacío"
+        },
+        notNull: {
+          msg: "El número de carnet no puede ser nulo"
+        }
+      },
+      field: 'usuario_carnet'
+    },
+    fecha: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "La fecha no pueden estar vacía"
+        },
+        notNull: {
+          msg: "La fecha no pueden ser nula"
+        }
+      },
+      field:'fecha'
+    },
+    curso_catedratico_idcatedratico_curso: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El idCatedratico_curso no puede estar vacío"
+        },
+        notNull: {
+          msg: "El idCatedratico_curso no puede ser nulo"
+        }
+      },
+      field:'curso_catedratico_idcatedratico_curso'
     },
     curso_codigo_curso: {
       type: DataTypes.INTEGER,
@@ -35,31 +86,31 @@ module.exports = (sequelize, DataTypes) => {
       },
       field:'curso_codigo_curso'
     },
-    creditos: {
+    catedratico_nocatedratico: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Los creditos no pueden estar vacíos"
+          msg: "El NoCatedratico no puede estar vacío"
         },
         notNull: {
-          msg: "Los creditos no pueden ser nulos"
+          msg: "El NoCatedratico no puede ser nulo"
         }
       },
-      field:'creditos'
+      field:'catedratico_nocatedratico'
     },
-    semestre: {
+    tipo: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "El semestre no puede estar vacío"
+          msg: "El tipo no puede estar vacío"
         },
         notNull: {
-          msg: "El semestre no puede ser nulo"
+          msg: "El tipo no puede ser nulo"
         }
       },
-      field:'semestre'
+      field:'tipo'
     },
     created_at: {
       type: DataTypes.DATE,
@@ -84,7 +135,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       field:'updated_at'
-    },
+    }
   }, {
     sequelize,
     timestamps: false, // Eliminamos el updatedAt y createdAt
@@ -99,7 +150,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'pensum',
+    modelName: 'post',
   });
-  return pensum;
+  return post;
 };
