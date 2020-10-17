@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.post);
       this.belongsTo(models.course, {
-        foreignKey: 'codigo_curso', as: 'codigo_curso'
+        foreignKey: 'codigo_curso', as: 'curso'
       });
       this.belongsTo(models.professor, {
-        foreignKey: 'no_catedratico', as: 'no_catedratico'
+        foreignKey: 'no_catedratico', as: 'catedratico'
       });
     }
   };
