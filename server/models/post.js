@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.user, {
+        foreignKey: 'usuario_carne', as: 'user'
+      });
+      this.belongsTo(models.course_professor, {
+        foreignKey: 'curso_catedratico_idcatedratico_curso', as: 'course_professor'
+      });
+      this.belongsTo(models.course, {
+        foreignKey: 'curso_codigo_curso', as: 'course'
+      });
+      this.belongsTo(models.professor, {
+        foreignKey: 'catedratico_nocatedratico', as: 'professor'
+      });
     }
   };
   post.init({
