@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.pensum);
       this.hasMany(models.course_professor);
+      this.hasMany(models.post);
     }
   };
   course.init({
