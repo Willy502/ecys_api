@@ -14,7 +14,9 @@ module.exports = {
       },
       carnet: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: { model: 'users', key: 'carnet' }
       },
       fecha: {
         allowNull: false,
@@ -22,15 +24,21 @@ module.exports = {
       },
       id_catedratico_curso: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: { model: 'course_professors', key: 'id_catedratico_curso' }
       },
       codigo_curso: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: { model: 'courses', key: 'codigo_curso' }
       },
       no_catedratico: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: { model: 'professors', key: 'no_catedratico' }
       },
       tipo: {
         allowNull: false,
