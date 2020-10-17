@@ -88,5 +88,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'professor',
   });
+  professor.removeAttribute('id');
   return professor;
 };

@@ -164,5 +164,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'post',
   });
+  post.removeAttribute('id');
   return post;
 };

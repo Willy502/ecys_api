@@ -131,5 +131,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+  user.removeAttribute('id');
   return user;
 };

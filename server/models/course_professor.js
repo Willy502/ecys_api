@@ -92,5 +92,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'course_professor',
   });
+  course_professor.removeAttribute('id');
   return course_professor;
 };

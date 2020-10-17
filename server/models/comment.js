@@ -106,5 +106,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'comment',
   });
+  comment.removeAttribute('id');
   return comment;
 };
