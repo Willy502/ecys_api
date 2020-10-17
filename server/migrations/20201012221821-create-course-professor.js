@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      curso_codigo_curso: {
+      codigo_curso: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
         references: { model: 'courses', key: 'codigo_curso' }
       },
-      catedratico_no_catedratico: {
+      no_catedratico: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,

@@ -12,16 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user, {
-        foreignKey: 'usuario_carne', as: 'user'
+        foreignKey: 'carnet', as: 'user'
       });
       this.belongsTo(models.course_professor, {
-        foreignKey: 'curso_catedratico_idcatedratico_curso', as: 'course_professor'
+        foreignKey: 'id_catedratico_curso', as: 'course_professor'
       });
       this.belongsTo(models.course, {
-        foreignKey: 'curso_codigo_curso', as: 'course'
+        foreignKey: 'codigo_curso', as: 'course'
       });
       this.belongsTo(models.professor, {
-        foreignKey: 'catedratico_nocatedratico', as: 'professor'
+        foreignKey: 'no_catedratico', as: 'professor'
       });
     }
   };
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       field:'mensajes'
     },
-    usuario_carne: {
+    carnet: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El número de carnet no puede ser nulo"
         }
       },
-      field: 'usuario_carnet'
+      field: 'carnet'
     },
     fecha: {
       type: DataTypes.DATE,
@@ -72,20 +72,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       field:'fecha'
     },
-    curso_catedratico_idcatedratico_curso: {
+    id_catedratico_curso: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "El idCatedratico_curso no puede estar vacío"
+          msg: "El id_catedratico_curso no puede estar vacío"
         },
         notNull: {
-          msg: "El idCatedratico_curso no puede ser nulo"
+          msg: "El id_catedratico_curso no puede ser nulo"
         }
       },
-      field:'curso_catedratico_idcatedratico_curso'
+      field:'id_catedratico_curso'
     },
-    curso_codigo_curso: {
+    codigo_curso: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -96,20 +96,20 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de curso no puede ser nulo"
         }
       },
-      field:'curso_codigo_curso'
+      field:'codigo_curso'
     },
-    catedratico_nocatedratico: {
+    no_catedratico: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "El NoCatedratico no puede estar vacío"
+          msg: "El catedratico no puede estar vacío"
         },
         notNull: {
-          msg: "El NoCatedratico no puede ser nulo"
+          msg: "El catedratico no puede ser nulo"
         }
       },
-      field:'catedratico_nocatedratico'
+      field:'no_catedratico'
     },
     tipo: {
       type: DataTypes.INTEGER,

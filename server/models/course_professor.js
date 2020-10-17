@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.post);
       this.belongsTo(models.course, {
-        foreignKey: 'curso_codigo_curso', as: 'codigo_curso'
+        foreignKey: 'codigo_curso', as: 'codigo_curso'
       });
       this.belongsTo(models.professor, {
-        foreignKey: 'catedratico_no_catedratico', as: 'no_catedratico'
+        foreignKey: 'no_catedratico', as: 'no_catedratico'
       });
     }
   };
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       field: 'id_catedratico_curso'
     },
-    curso_codigo_curso: {
+    codigo_curso: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -37,9 +37,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de curso no puede ser nulo"
         }
       },
-      field:'curso_codigo_curso'
+      field:'codigo_curso'
     },
-    catedratico_no_catedratico: {
+    no_catedratico: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de catedratico no puede ser nulo"
         }
       },
-      field:'catedratico_no_catedratico'
+      field:'no_catedratico'
     },
     created_at: {
       type: DataTypes.DATE,

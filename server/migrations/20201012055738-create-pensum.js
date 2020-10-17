@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      curso_codigo_curso: {
+      codigo_curso: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,

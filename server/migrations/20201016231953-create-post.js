@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      usuario_carne: {
+      carnet: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -20,15 +20,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      curso_catedratico_idcatedratico_curso: {
+      id_catedratico_curso: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      curso_codigo_curso: {
+      codigo_curso: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      catedratico_nocatedratico: {
+      no_catedratico: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
