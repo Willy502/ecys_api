@@ -4,6 +4,7 @@ const User = require('../models').user;
 let { onSuccess, onError } = require('./BaseController');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -13,7 +14,7 @@ module.exports = {
         return await User
         .findOne({
             where: {
-                id: request.user.carnet
+                carnet: request.user.carnet
             }
         })
         .then((result) => {
@@ -149,7 +150,7 @@ module.exports = {
                 }, process.env.SEED);
 
                 response.status(200).send(
-                    onSuccess({user: result, token}, "Utiliza el token para cambiar de contraseña.", 200)
+                    onSuccess({token}, "Utiliza el token para cambiar de contraseña.", 200)
                 );
 
             } else {
@@ -173,10 +174,11 @@ module.exports = {
     async updatePassword(request, response) {
 
         let body = request.body;
+        var password = body.password != null ? bcrypt.hashSync(body.password, 10) : null;
 
         return await User
         .update({
-            contrasenia: body.nombres,
+            contrasenia: password,
             updated_at: Date.now()
         }, {
             where: {

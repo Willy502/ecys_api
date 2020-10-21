@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   approved_course.init({
-    carnet: {
+    user_carnet: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El número de carnet no puede ser nulo"
         }
       },
-      field: 'carnet'
+      field: 'user_carnet'
     },
-    id_curso_pensum: {
+    pensum_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El id_curso_pensum no puede ser nulo"
         }
       },
-      field:'id_curso_pensum'
+      field:'pensum_id'
     },
     nota_aprobada: {
       type: DataTypes.INTEGER,
@@ -94,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
     indexes: [
       {
         unique: true,
-        fields: ['carnet', 'id_curso_pensum']
+        fields: ['user_carnet', 'id_curso_pensum']
       }
     ]
   }, {

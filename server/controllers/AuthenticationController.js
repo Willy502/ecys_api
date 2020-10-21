@@ -70,7 +70,7 @@ module.exports = {
             if (result != null) {
                 if (!bcrypt.compareSync(body.password, result.dataValues.contrasenia)) {
                     response.status(401).send(
-                        onError(result, "Invalid password", 401)
+                        onError(result, "Contraseña invalida.", 401)
                     );
                 }
 
@@ -81,7 +81,7 @@ module.exports = {
                 }, process.env.SEED);
 
                 response.status(200).send(
-                    onSuccess({user: result, token}, "Inicio se sesión exitoso.", 200)
+                    onSuccess({user: result, token}, "Inicio de sesión exitoso.", 200)
                 );
 
             } else {
@@ -94,7 +94,7 @@ module.exports = {
         .catch((error) => {
 
             response.status(500).send(
-                onError(error, "Contact with the server administrator.", 500)
+                onError(error, "Falló la operación.", 500)
             );
 
         });

@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('posts', {
-      id_publicacion: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      carnet: {
+      user_carnet: {
         allowNull: false,
         type: Sequelize.INTEGER,
         foreignKey: true,
@@ -22,23 +22,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      id_catedratico_curso: {
-        allowNull: false,
+      course_professor_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: 'course_professors', key: 'id_catedratico_curso' }
+        references: { model: 'course_professors', key: 'id' }
       },
-      codigo_curso: {
-        allowNull: false,
+      course_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: 'courses', key: 'codigo_curso' }
+        references: { model: 'courses', key: 'id' }
       },
-      no_catedratico: {
-        allowNull: false,
+      professor_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: 'professors', key: 'no_catedratico' }
+        references: { model: 'professors', key: 'id' }
       },
       tipo: {
         allowNull: false,

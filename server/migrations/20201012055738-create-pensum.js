@@ -2,17 +2,17 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('pensums', {
-      id_curso_pensum: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codigo_curso: {
+      course_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
-        references: { model: 'courses', key: 'codigo_curso' }
+        references: { model: 'courses', key: 'id' }
       },
       creditos: {
         allowNull: false,

@@ -122,8 +122,7 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: [ // excluir campos de un select
           'created_at',
-          'updated_at',
-          'contrasenia'
+          'updated_at'
         ]
       }
     }
