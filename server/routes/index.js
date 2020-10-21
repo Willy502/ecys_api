@@ -3,7 +3,8 @@ const { checkToken } = require('../middlewares/authentication');
 // Controllers
 const authenticationController = require('../controllers').authentication;
 const userController = require('../controllers').user;
-const postController = require('../controllers').post; 
+const postController = require('../controllers').post;
+const courseController = require('../controllers').course;
 
 module.exports = (app) => {
     
@@ -21,4 +22,7 @@ module.exports = (app) => {
     // Post routes
     app.get('/api/posts/:filter/:search?', checkToken, postController.retrievePosts); // Recuperar publicaciones filtrando
     app.post('/api/post', checkToken, postController.createPost); // Crear nueva publicación
+
+    // Get necesary objects for posts
+    app.get('/api/courses', checkToken, courseController.retrieveCourses); // Recuperar todos los cursos
 }
