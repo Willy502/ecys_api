@@ -11,18 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.course, {
-        foreignKey: 'codigo_curso', as: 'curso'
+        foreignKey: 'course_id', as: 'curso'
       });
     }
   };
   pensum.init({
-    id_curso_pensum: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'id_curso_pensum'
-    },
-    codigo_curso: {
+    course_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -33,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de curso no puede ser nulo"
         }
       },
-      field:'codigo_curso'
+      field:'course_id'
     },
     creditos: {
       type: DataTypes.INTEGER,
@@ -101,6 +95,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'pensum',
   });
-  pensum.removeAttribute('id');
   return pensum;
 };

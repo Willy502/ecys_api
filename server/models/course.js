@@ -16,12 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   course.init({
-    codigo_curso: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'codigo_curso'
-    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -75,6 +69,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'course',
   });
-  course.removeAttribute('id');
   return course;
 };

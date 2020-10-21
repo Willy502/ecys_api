@@ -12,21 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user, {
-        foreignKey: 'carnet', as: 'user'
+        foreignKey: 'user_carnet', as: 'user'
       });
       this.belongsTo(models.post, {
-        foreignKey: 'id_publicacion', as: 'post'
+        foreignKey: 'post_id', as: 'post'
       });
     }
   };
   comment.init({
-    id_comentario: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'id_comentario'
-    },
     mensaje: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -40,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       field:'mensajes'
     },
-    id_publicacion: {
+    post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -51,9 +44,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "La publicación no puede ser nula"
         }
       },
-      field: 'id_publicacion'
+      field: 'post_id'
     },
-    carnet: {
+    user_carnet: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -64,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El número de carnet no puede ser nulo"
         }
       },
-      field: 'carnet'
+      field: 'user_carnet'
     },
     created_at: {
       type: DataTypes.DATE,
@@ -106,6 +99,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'comment',
   });
-  comment.removeAttribute('id');
   return comment;
 };

@@ -11,16 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.course_professor);
-      this.hasMany(models.professor);
+      this.hasMany(models.post);
     }
   };
   professor.init({
-    no_catedratico: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'no_catedratico'
-    },
     nombres: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -88,6 +82,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'professor',
   });
-  professor.removeAttribute('id');
   return professor;
 };

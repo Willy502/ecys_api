@@ -2,17 +2,17 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('approved_courses', {
-      carnet: {
+      user_carnet: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
         references: { model: 'users', key: 'carnet' }
       },
-      id_curso_pensum: {
+      pensum_id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        references: { model: 'pensums', key: 'id_curso_pensum' }
+        references: { model: 'pensums', key: 'id' }
       },
       nota_aprobada: {
         allowNull: false,
@@ -30,7 +30,7 @@ module.exports = {
       indexes: [
         {
           unique: true,
-          fields: ['carnet', 'id_curso_pensum']
+          fields: ['user_carnet', 'pensum_id']
         }
       ]
   });

@@ -12,21 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.post);
       this.belongsTo(models.course, {
-        foreignKey: 'codigo_curso', as: 'curso'
+        foreignKey: 'course_id', as: 'curso'
       });
       this.belongsTo(models.professor, {
-        foreignKey: 'no_catedratico', as: 'catedratico'
+        foreignKey: 'professor_id', as: 'catedratico'
       });
     }
   };
   course_professor.init({
-    id_catedratico_curso: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'id_catedratico_curso'
-    },
-    codigo_curso: {
+    course_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -37,9 +31,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de curso no puede ser nulo"
         }
       },
-      field:'codigo_curso'
+      field:'course_id'
     },
-    no_catedratico: {
+    professor_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -50,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El código de catedratico no puede ser nulo"
         }
       },
-      field:'no_catedratico'
+      field:'professor_id'
     },
     created_at: {
       type: DataTypes.DATE,
@@ -92,6 +86,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'course_professor',
   });
-  course_professor.removeAttribute('id');
   return course_professor;
 };

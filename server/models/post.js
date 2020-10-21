@@ -12,27 +12,24 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user, {
-        foreignKey: 'carnet', as: 'user'
+        foreignKey: 'user_carnet', as: 'user'
       });
       this.belongsTo(models.course_professor, {
-        foreignKey: 'id_catedratico_curso', as: 'course_professor'
+        as: 'course_professor',
+        foreignKey: { name: 'course_professor_id', allowNull: true }
       });
       this.belongsTo(models.course, {
-        foreignKey: 'codigo_curso', as: 'course'
+        as: 'course',
+        foreignKey: { name: 'course_id', allowNull: true }
       });
       this.belongsTo(models.professor, {
-        foreignKey: 'no_catedratico', as: 'professor'
+        as: 'professor',
+        foreignKey: { name: 'professor_id', allowNull: true }
       });
+      //this.hasMany(models.comment, {foreignKey: 'id_publicacion', as: 'comment', allowNull: true});
     }
   };
   post.init({
-    id_publicacion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'id_publicacion'
-    },
     mensaje: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,9 +41,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El mensaje no pueden ser nulo"
         }
       },
-      field:'mensajes'
+      field:'mensaje'
     },
-    carnet: {
+    user_carnet: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -57,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El número de carnet no puede ser nulo"
         }
       },
-      field: 'carnet'
+      field: 'user_carnet'
     },
     fecha: {
       type: DataTypes.DATE,
@@ -72,44 +69,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       field:'fecha'
     },
-    id_catedratico_curso: {
+    course_professor_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "El id_catedratico_curso no puede estar vacío"
-        },
-        notNull: {
-          msg: "El id_catedratico_curso no puede ser nulo"
-        }
-      },
-      field:'id_catedratico_curso'
+      allowNull: true,
+      field:'course_professor_id'
     },
-    codigo_curso: {
+    course_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "El código de curso no puede estar vacío"
-        },
-        notNull: {
-          msg: "El código de curso no puede ser nulo"
-        }
-      },
-      field:'codigo_curso'
+      allowNull: true,
+      field:'course_id'
     },
-    no_catedratico: {
+    professor_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "El catedratico no puede estar vacío"
-        },
-        notNull: {
-          msg: "El catedratico no puede ser nulo"
-        }
-      },
-      field:'no_catedratico'
+      allowNull: true,
+      field:'professor_id'
     },
     tipo: {
       type: DataTypes.INTEGER,
@@ -164,6 +137,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'post',
   });
-  post.removeAttribute('id');
   return post;
 };
