@@ -112,8 +112,8 @@ module.exports = {
         })
         .catch((error) => {
             response.status(500).send(
-                onError(error, error, 500)
-            ); 
+                onError(error, 'Falló la operación.', 500)
+            );
         });
 
     },

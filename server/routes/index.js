@@ -5,6 +5,7 @@ const authenticationController = require('../controllers').authentication;
 const userController = require('../controllers').user;
 const postController = require('../controllers').post;
 const courseController = require('../controllers').course;
+const professorController = require('../controllers').professor;
 
 module.exports = (app) => {
     
@@ -25,4 +26,6 @@ module.exports = (app) => {
 
     // Get necesary objects for posts
     app.get('/api/courses', checkToken, courseController.retrieveCourses); // Recuperar todos los cursos
+    app.get('/api/professors', checkToken, professorController.retrieveProfessors); // Recuperar todos los cursos
+
 }
