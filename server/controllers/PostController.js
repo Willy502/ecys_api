@@ -40,6 +40,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -66,6 +69,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -92,6 +98,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -101,6 +110,16 @@ module.exports = {
         .findAll(search)
         .then((result) => {
             if (result != null) {
+
+                for (var c = 0; c < result.length; c++) {
+
+                    result[c].dataValues.comments = {
+                        commentsQuantity: result[c].dataValues.comments.length
+                    }
+
+                    //result[c].dataValues.comments = result[c].dataValues.comments.reverse();
+                }
+
                 response.status(200).send(
                     onSuccess({posts:result}, "Publicaciones recuperadas exitosamente.", 200)
                 );
