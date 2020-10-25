@@ -23,6 +23,7 @@ module.exports = (app) => {
 
     // Post routes
     app.get('/api/posts/:filter/:search?', checkToken, postController.retrievePosts); // Recuperar publicaciones filtrando
+    app.get('/api/post/:post_id', checkToken, postController.getPost); // Recuperar publicacion
     app.post('/api/post', checkToken, postController.createPost); // Crear nueva publicación
 
     // Get necesary objects for posts
