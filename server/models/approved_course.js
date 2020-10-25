@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.user, {
+        foreignKey: 'user_carnet', as: 'user'
+      });
+      this.belongsTo(models.pensum, {
+        foreignKey: 'pensum_id', as: 'pensum'
+      });
     }
   };
   approved_course.init({
@@ -51,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "La nota de aprobación no puede ser nula"
         }
       },
-      field:'note_aprobada'
+      field:'nota_aprobada'
     },
     created_at: {
       type: DataTypes.DATE,
