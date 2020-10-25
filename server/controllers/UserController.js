@@ -28,7 +28,8 @@ module.exports = {
                     attributes: ['creditos', 'semestre'],
                     include: [{
                         model: Course,
-                        as: 'course'
+                        as: 'course',
+                        attributes: ['nombre']
                     }]
                 }]
             }]

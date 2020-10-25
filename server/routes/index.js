@@ -8,7 +8,8 @@ const courseController = require('../controllers').course;
 const professorController = require('../controllers').professor;
 const courseProfessorController = require('../controllers').courseProfessor;
 const commentController = require('../controllers').comment;
-const approvedCourse = require('../controllers').approved;
+const approvedCourseController = require('../controllers').approved;
+const pensumController = require('../controllers').pensum;
 
 module.exports = (app) => {
     
@@ -37,6 +38,10 @@ module.exports = (app) => {
     app.post('/api/comment', checkToken, commentController.createComment); // Crear comentario
 
     // Approved course
-    app.post('/api/approved-course', checkToken, approvedCourse.createApprovedCourse);
+    app.post('/api/approved-course', checkToken, approvedCourseController.createApprovedCourse); // Agregar curso aprobado
+
+    // Pensum
+    app.get('/api/pensum', checkToken, pensumController.pensum); // Recuperar los cursos del pensum
+    app.get('/api/pensum/not-approved', checkToken, pensumController.pensumsNotCoursed); // Recuperar los cursos del pensum no cursados
 
 }
