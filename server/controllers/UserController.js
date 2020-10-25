@@ -28,8 +28,7 @@ module.exports = {
                     attributes: ['creditos', 'semestre'],
                     include: [{
                         model: Course,
-                        as: 'course',
-                        attributes: ['nombre']
+                        as: 'course'
                     }]
                 }]
             }]
@@ -43,6 +42,7 @@ module.exports = {
                 var creditosTotales = 0;
 
                 for (var c = 0; c < result.dataValues.approved_courses.length; c++) {
+
                     var approved = result.dataValues.approved_courses[c];
 
                     creditosTotales += approved.pensum.creditos;

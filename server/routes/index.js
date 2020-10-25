@@ -8,6 +8,7 @@ const courseController = require('../controllers').course;
 const professorController = require('../controllers').professor;
 const courseProfessorController = require('../controllers').courseProfessor;
 const commentController = require('../controllers').comment;
+const approvedCourse = require('../controllers').approved;
 
 module.exports = (app) => {
     
@@ -34,5 +35,8 @@ module.exports = (app) => {
 
     // Comments
     app.post('/api/comment', checkToken, commentController.createComment); // Crear comentario
+
+    // Approved course
+    app.post('/api/approved-course', checkToken, approvedCourse.createApprovedCourse);
 
 }
