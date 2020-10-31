@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.user, {
+        foreignKey: 'user_carnet', as: 'user'
+      });
+      this.belongsTo(models.pensum, {
+        foreignKey: 'pensum_id', as: 'pensum'
+      });
     }
   };
   approved_course.init({
@@ -32,10 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "El id_curso_pensum no puede estar vacío"
+          msg: "El pensum_id no puede estar vacío"
         },
         notNull: {
-          msg: "El id_curso_pensum no puede ser nulo"
+          msg: "El pensum_id no puede ser nulo"
         }
       },
       field:'pensum_id'
@@ -51,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "La nota de aprobación no puede ser nula"
         }
       },
-      field:'note_aprobada'
+      field:'nota_aprobada'
     },
     created_at: {
       type: DataTypes.DATE,
@@ -94,13 +100,12 @@ module.exports = (sequelize, DataTypes) => {
     indexes: [
       {
         unique: true,
-        fields: ['user_carnet', 'id_curso_pensum']
+        fields: ['user_carnet', 'pensum_id']
       }
     ]
   }, {
     sequelize,
     modelName: 'approved_course',
   });
-  approved_course.removeAttribute('id');
   return approved_course;
 };

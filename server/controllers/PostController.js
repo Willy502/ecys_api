@@ -40,6 +40,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -66,6 +69,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -92,6 +98,9 @@ module.exports = {
                                 'contrasenia', 'created_at', 'updated_at'
                             ]
                         }
+                    }, {
+                        model: Comment,
+                        attributes: ['user_carnet']
                     }]
                 };
                 break;
@@ -101,6 +110,16 @@ module.exports = {
         .findAll(search)
         .then((result) => {
             if (result != null) {
+
+                for (var c = 0; c < result.length; c++) {
+
+                    result[c].dataValues.comments = {
+                        commentsQuantity: result[c].dataValues.comments.length
+                    }
+
+                    //result[c].dataValues.comments = result[c].dataValues.comments.reverse();
+                }
+
                 response.status(200).send(
                     onSuccess({posts:result}, "Publicaciones recuperadas exitosamente.", 200)
                 );
@@ -152,5 +171,61 @@ module.exports = {
         });
 
     },
+
+    // Get post
+    async getPost(request, response) {
+
+        return await Post
+        .findOne({
+            where: {
+                id: request.params.post_id
+            },
+            attributes: {
+                exclude: [
+                    'courseId', 'courseProfessorId', 'professorId', 'userCarnet', 'created_at', 'updated_at'
+                ]
+            },
+            include: [{
+                model: Professor,
+                as: 'professor'
+            }, {
+                model: Course,
+                as: 'course'
+            }, {
+                model: User,
+                as: 'user',
+                attributes: {
+                    exclude: [
+                        'contrasenia', 'created_at', 'updated_at'
+                    ]
+                }
+            }, {
+                model: Comment,
+                attributes: ['mensaje'],
+                include: [{
+                    model: User, as: 'user',
+                    attributes: ['carnet', 'nombres', 'apellidos']
+                }]
+            }]
+        })
+        .then((result) => {
+            if (result != null) {
+
+                response.status(200).send(
+                    onSuccess({post:result}, "Publicación recuperada exitosamente.", 200)
+                );
+            } else {
+                response.status(404).send(
+                    onError(result, "Publicación no encontrada", 404)
+                );
+            }
+        })
+        .catch((error) => {
+            response.status(500).send(
+                onError(error, 'Falló la operación.', 500)
+            );
+        });
+
+    }
 
 }

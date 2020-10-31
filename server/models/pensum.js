@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.course, {
-        foreignKey: 'course_id', as: 'curso'
+        foreignKey: 'course_id', as: 'course'
       });
+      this.hasMany(models.approved_course);
     }
   };
   pensum.init({

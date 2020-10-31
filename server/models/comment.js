@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "El mensaje no pueden ser nulo"
         }
       },
-      field:'mensajes'
+      field:'mensaje'
     },
     post_id: {
       type: DataTypes.INTEGER,
