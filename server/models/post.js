@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'professor',
         foreignKey: { name: 'professor_id', allowNull: true }
       });
+      this.hasMany(models.comment);
       //this.hasMany(models.comment, {foreignKey: 'id_publicacion', as: 'comment', allowNull: true});
     }
   };

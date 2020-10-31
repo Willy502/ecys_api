@@ -1,5 +1,8 @@
 // Models
 const User = require('../models').user;
+const ApprovedCourse = require('../models').approved_course;
+const Pensum = require('../models').pensum;
+const Course = require('../models').course;
 // Base Controller
 let { onSuccess, onError } = require('./BaseController');
 const { Op } = require('sequelize');
@@ -15,13 +18,47 @@ module.exports = {
         .findOne({
             where: {
                 carnet: request.user.carnet
-            }
+            },
+            include: [{
+                model: ApprovedCourse,
+                attributes: ['nota_aprobada'],
+                include: [{
+                    model: Pensum,
+                    as: 'pensum',
+                    attributes: ['creditos', 'semestre'],
+                    include: [{
+                        model: Course,
+                        as: 'course',
+                        attributes: ['nombre']
+                    }]
+                }]
+            }]
         })
         .then((result) => {
 
             delete result.dataValues.contrasenia;
              
             if (result != null) {
+
+                var creditosTotales = 0;
+
+                for (var c = 0; c < result.dataValues.approved_courses.length; c++) {
+
+                    var approved = result.dataValues.approved_courses[c];
+
+                    creditosTotales += approved.pensum.creditos;
+
+                    var  approved_course = {
+                        nota_aprobada: approved.nota_aprobada,
+                        creditos: approved.pensum.creditos,
+                        semestre: approved.pensum.semestre,
+                        curso: approved.pensum.course.nombre
+                    }
+                    
+                    result.dataValues.approved_courses[c].dataValues = approved_course;
+                }
+
+                result.dataValues.creditos = creditosTotales;
 
                 response.status(200).send(
                     onSuccess({user: result}, "Cuenta recuperada exitosamente.", 200)
@@ -91,13 +128,46 @@ module.exports = {
         .findOne({
             where: {
                 carnet: request.params.carnet
-            }
+            },
+            include: [{
+                model: ApprovedCourse,
+                attributes: ['nota_aprobada'],
+                include: [{
+                    model: Pensum,
+                    as: 'pensum',
+                    attributes: ['creditos', 'semestre'],
+                    include: [{
+                        model: Course,
+                        as: 'course',
+                        attributes: ['nombre']
+                    }]
+                }]
+            }]
         })
         .then((result) => {
              
             delete result.dataValues.contrasenia;
              
             if (result != null) {
+
+                var creditosTotales = 0;
+
+                for (var c = 0; c < result.dataValues.approved_courses.length; c++) {
+                    var approved = result.dataValues.approved_courses[c];
+                    
+                    creditosTotales += approved.pensum.creditos;
+
+                    var  approved_course = {
+                        nota_aprobada: approved.nota_aprobada,
+                        creditos: approved.pensum.creditos,
+                        semestre: approved.pensum.semestre,
+                        curso: approved.pensum.course.nombre
+                    }
+                    
+                    result.dataValues.approved_courses[c].dataValues = approved_course;
+                }
+
+                result.dataValues.creditos = creditosTotales;
 
                 response.status(200).send(
                     onSuccess({user: result}, "Cuenta recuperada exitosamente.", 200)

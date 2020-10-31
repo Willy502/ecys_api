@@ -4,6 +4,9 @@ const post = require('./PostController');
 const course = require('./CourseController');
 const professor = require('./ProfessorController');
 const courseProfessor = require('./CourseProfessorController');
+const comment = require('./CommentController');
+const approved = require('./ApprovedCoursesController');
+const pensum = require('./PensumController');
 
 module.exports = {
     authentication,
@@ -11,5 +14,8 @@ module.exports = {
     post,
     course,
     professor,
-    courseProfessor
+    courseProfessor,
+    comment,
+    approved,
+    pensum
 };
